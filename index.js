@@ -20,3 +20,11 @@ function makeFreelancer() {
 }
 
 let freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
+
+function findAverageRate() {
+  let averageRate = freelancers.reduce(
+    (averageRate, freelancer) => averageRate + freelancer.rate,
+    0
+  );
+  return averageRate / freelancers.length;
+}
