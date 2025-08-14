@@ -17,7 +17,9 @@ let averageRate = findAverageRate();
 function makeFreelancer() {
   let name = sample(NAMES);
   let occupation = sample(OCCUPATIONS);
-  let rate = Math.floor(Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min));
+  let rate =
+    PRICE_RANGE.min +
+    Math.floor(Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min));
 
   return { name, occupation, rate };
 }
@@ -35,13 +37,13 @@ function sample(array) {
 }
 
 function singleFreelancer({ name, occupation, rate }) {
-  let $fl = document.createElement("fl");
-  $fl.innerHTML = `
+  let $tr = document.createElement("tr");
+  $tr.innerHTML = `
       <td>${name}</td>
-      <td>Occupation: ${occupation}</td>
-      <td>Rate: $${rate}/hr</td>
+      <td>${occupation}</td>
+      <td>$${rate}/hr</td>
     `;
-  return $fl;
+  return $tr;
 }
 
 function multipleFreelancers() {
@@ -72,12 +74,12 @@ function render() {
             <th>Rate</th>
             </tr>
         </thead>
-        <tbody id="FreelancerRows"></tbody>
+        <tbody id="multipleFreelancers"></tbody>
     </table>
   `;
   $app.querySelector("AverageRate").replaceWith(AverageRate());
   $app
-    .querySelector("#FreelancerRows")
+    .querySelector("#multipleFreelancers")
     .replaceChildren(...freelancers.map(multipleFreelancers));
 }
 
