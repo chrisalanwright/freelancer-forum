@@ -28,3 +28,13 @@ function findAverageRate() {
   );
   return averageRate / freelancers.length;
 }
+
+function singleFreelancer({ name, occupation, rate }) {
+  let $fl = document.createElement("fl");
+  $fl.innerHTML = `
+      <td>${name}</td>
+      <td>Occupation: ${occupation}</td>
+      <td>Rate: $${rate}/hr</td>
+    `;
+  return $fl;
+}
