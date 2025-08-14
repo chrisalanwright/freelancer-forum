@@ -18,3 +18,5 @@ function makeFreelancer() {
 
   return { name, occupation, rate };
 }
+
+let freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
