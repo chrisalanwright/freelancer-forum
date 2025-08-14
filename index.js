@@ -20,13 +20,14 @@ function makeFreelancer() {
 }
 
 let freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
+let averageRate = findAverageRate();
 
 function findAverageRate() {
-  let averageRate = freelancers.reduce(
-    (averageRate, freelancer) => averageRate + freelancer.rate,
+  let avgRate = freelancers.reduce(
+    (avgRate, freelancer) => avgRate + freelancer.rate,
     0
   );
-  return averageRate / freelancers.length;
+  return avgRate / freelancers.length;
 }
 
 function singleFreelancer({ name, occupation, rate }) {
@@ -37,4 +38,11 @@ function singleFreelancer({ name, occupation, rate }) {
       <td>Rate: $${rate}/hr</td>
     `;
   return $fl;
+}
+
+function multipleFreelancers() {
+  let $table = document.createElement("table");
+  let $freelancers = freelancers.map(singleFreelancer);
+  $table.replaceChildren(...$freelancers);
+  return $table;
 }
