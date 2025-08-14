@@ -11,6 +11,9 @@ const OCCUPATIONS = ["Writer", "Teacher", "Programmer", "Designer", "Engineer"];
 const PRICE_RANGE = { min: 20, max: 200 };
 const NUM_FREELANCERS = 100;
 
+let freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
+let averageRate = findAverageRate();
+
 function makeFreelancer() {
   let name = sample(NAMES);
   let occupation = sample(OCCUPATIONS);
@@ -19,15 +22,12 @@ function makeFreelancer() {
   return { name, occupation, rate };
 }
 
-let freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
-let averageRate = findAverageRate();
-
 function findAverageRate() {
-  let avgRate = freelancers.reduce(
-    (avgRate, freelancer) => avgRate + freelancer.rate,
+  let total = freelancers.reduce(
+    (total, freelancer) => total + freelancer.rate,
     0
   );
-  return avgRate / freelancers.length;
+  return total / freelancers.length;
 }
 
 function singleFreelancer({ name, occupation, rate }) {
@@ -51,4 +51,28 @@ function averageRate() {
   let $p = document.createElement("p");
   $p.innerText = `Average Rate: $${averageRate}/hr`;
   return $p;
+}
+
+function render() {
+  let $app = document.querySelector("#app");
+  $app.innerHTML = `
+    <h1>Freelancer Forum</h1>
+    <p>Welcome to the Freelancer Forum! Here you can find freelancers for various tasks.</p>
+    <averageRate></averageRate>
+    <h2>Freelancers</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Occupation</th>
+            <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody id="FreelancerRows"></tbody>
+    </table>
+  `;
+  $app.querySelector("averageRate").replaceWith(averageRate());
+  $app
+    .querySelector("#FreelancerRows")
+    .replaceChildren(...freelancers.map(multipleFreelancers));
 }
