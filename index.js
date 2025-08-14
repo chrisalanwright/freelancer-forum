@@ -46,3 +46,9 @@ function multipleFreelancers() {
   $table.replaceChildren(...$freelancers);
   return $table;
 }
+
+function averageRate() {
+  let $p = document.createElement("p");
+  $p.innerText = `Average Rate: $${averageRate}/hr`;
+  return $p;
+}
