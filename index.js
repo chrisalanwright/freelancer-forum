@@ -30,6 +30,10 @@ function findAverageRate() {
   return total / freelancers.length;
 }
 
+function sample(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
 function singleFreelancer({ name, occupation, rate }) {
   let $fl = document.createElement("fl");
   $fl.innerHTML = `
@@ -47,9 +51,9 @@ function multipleFreelancers() {
   return $table;
 }
 
-function averageRate() {
+function AverageRate() {
   let $p = document.createElement("p");
-  $p.innerText = `Average Rate: $${averageRate}/hr`;
+  $p.textContent = `The average rate is $${averageRate.toFixed(2)}.`;
   return $p;
 }
 
@@ -71,8 +75,10 @@ function render() {
         <tbody id="FreelancerRows"></tbody>
     </table>
   `;
-  $app.querySelector("averageRate").replaceWith(averageRate());
+  $app.querySelector("AverageRate").replaceWith(AverageRate());
   $app
     .querySelector("#FreelancerRows")
     .replaceChildren(...freelancers.map(multipleFreelancers));
 }
+
+render();
